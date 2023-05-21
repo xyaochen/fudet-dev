@@ -14,6 +14,7 @@ from mmdet.models.builder import SHARED_HEADS as MMDET_SHARED_HEADS
 from mmseg.models.builder import LOSSES as MMSEG_LOSSES
 
 MODELS = Registry('models', parent=MMCV_MODELS)
+VTRANSFORMS = Registry("vtransforms")
 
 BACKBONES = MODELS
 NECKS = MODELS

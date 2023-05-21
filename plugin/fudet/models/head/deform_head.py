@@ -146,7 +146,8 @@ class DeformableFUTRHead(DETRHead):
                     query_embeds,
                     mlvl_positional_encodings,
                     reg_branches=self.reg_branches if self.with_box_refine else None,  # noqa:E501
-                    cls_branches=self.cls_branches if self.as_two_stage else None  # noqa:E501
+                    cls_branches=self.cls_branches if self.as_two_stage else None,  # noqa:E501
+                    img_metas=img_metas,
             )
         hs = hs.permute(0, 2, 1, 3)
         outputs_classes = []
@@ -163,7 +164,8 @@ class DeformableFUTRHead(DETRHead):
             
             tmp[..., 0:2] += reference[..., 0:2]
             tmp[..., 0:2] = tmp[..., 0:2].sigmoid()
-            #tmp[..., 4:5] += reference[..., 2:3]
+            if reference.shape[-1] == 3:
+                tmp[..., 4:5] += reference[..., 2:3]
             tmp[..., 4:5] = tmp[..., 4:5].sigmoid()
             tmp[..., 0:1] = (tmp[..., 0:1] * (self.pc_range[3] - self.pc_range[0]) + self.pc_range[0])
             tmp[..., 1:2] = (tmp[..., 1:2] * (self.pc_range[4] - self.pc_range[1]) + self.pc_range[1])

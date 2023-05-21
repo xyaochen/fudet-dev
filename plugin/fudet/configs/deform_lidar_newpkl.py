@@ -114,8 +114,8 @@ data_root = 'data/nuscenes/'
 file_client_args = dict(backend='disk')
 
 db_sampler = dict(
-    data_root='data/',
-    info_path='data/nusc_pkl/' + 'nuscenes_dbinfos_train.pkl',
+    data_root='data/nusc_new/',
+    info_path='data/nusc_new/' + 'nuscenes_dbinfos_train.pkl',
     rate=1.0,
     prepare=dict(
         filter_by_difficulty=[-1],
@@ -246,7 +246,7 @@ data = dict(
         dataset=dict(
             type=dataset_type,
             data_root=data_root,
-            ann_file='data/nusc_pkl/' + 'nuscenes_infos_train.pkl',
+            ann_file='data/nusc_new/' + 'nuscenes_infos_train.pkl',
             pipeline=train_pipeline,
             classes=class_names,
             test_mode=False,
@@ -254,8 +254,8 @@ data = dict(
             # we use box_type_3d='LiDAR' in kitti and nuscenes dataset
             # and box_type_3d='Depth' in sunrgbd and scannet dataset.
             box_type_3d='LiDAR')),
-    val=dict(pipeline=test_pipeline, classes=class_names, ann_file='data/nusc_pkl/' + 'nuscenes_infos_val.pkl'),
-    test=dict(pipeline=test_pipeline, classes=class_names, ann_file='data/nusc_pkl/' + 'nuscenes_infos_val.pkl'))
+    val=dict(pipeline=test_pipeline, classes=class_names, ann_file='data/nusc_new/' + 'nuscenes_infos_val.pkl'),
+    test=dict(pipeline=test_pipeline, classes=class_names, ann_file='data/nusc_new/' + 'nuscenes_infos_val.pkl'))
 # For nuScenes dataset, we usually evaluate the model at the end of training.
 # Since the models are trained by 24 epochs by default, we set evaluation
 # interval to be 24. Please change the interval accordingly if you do not

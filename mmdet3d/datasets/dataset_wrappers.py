@@ -36,6 +36,7 @@ class CBGSDataset(object):
         Returns:
             list[dict]: List of annotations after class sampling.
         """
+        
         class_sample_idxs = {cat_id: [] for cat_id in self.cat2id.values()}
         for idx in range(len(self.dataset)):
             sample_cat_ids = self.dataset.get_cat_ids(idx)
@@ -47,7 +48,7 @@ class CBGSDataset(object):
             k: len(v) / duplicated_samples
             for k, v in class_sample_idxs.items()
         }
-
+        
         sample_indices = []
 
         frac = 1.0 / len(self.CLASSES)
@@ -56,6 +57,13 @@ class CBGSDataset(object):
             sample_indices += np.random.choice(cls_inds,
                                                int(len(cls_inds) *
                                                    ratio)).tolist()
+        '''
+        cls_cnt = {cat_id: 0 for cat_id in self.cat2id.values()}
+        for idx in sample_indices:
+            sample_cat_ids = self.dataset.get_cat_ids(idx)
+            for cat_id in sample_cat_ids:
+                cls_cnt[cat_id] += 1
+        '''
         return sample_indices
 
     def __getitem__(self, idx):

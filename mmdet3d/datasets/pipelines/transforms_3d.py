@@ -965,6 +965,12 @@ class PointsRangeFilter(object):
         input_dict['points'] = clean_points
         points_mask = points_mask.numpy()
 
+        if "radar" in input_dict:
+            radar = input_dict["radar"]
+            radar_mask = radar.in_range_3d(self.pcd_range)
+            clean_radar = radar[radar_mask]
+            input_dict["radar"] = clean_radar
+
         pts_instance_mask = input_dict.get('pts_instance_mask', None)
         pts_semantic_mask = input_dict.get('pts_semantic_mask', None)
 

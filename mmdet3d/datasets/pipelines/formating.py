@@ -206,6 +206,9 @@ class DefaultFormatBundle3D(DefaultFormatBundle):
         if 'points' in results:
             assert isinstance(results['points'], BasePoints)
             results['points'] = DC(results['points'].tensor)
+        
+        if "radar" in results:
+            results["radar"] = DC(results["radar"].tensor)
 
         for key in ['voxels', 'coors', 'voxel_centers', 'num_points']:
             if key not in results:

@@ -93,6 +93,7 @@ class DeformDet(MVXTwoStageDetector):
 
         voxel_features = self.pts_voxel_encoder(voxels, num_points, coors)
         batch_size = coors[-1, 0] + 1
+       
         x = self.pts_middle_encoder(voxel_features, coors, batch_size)
         x = self.pts_backbone(x)
         if self.with_pts_neck:
